@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sounddevice
+vosk
+rapidfuzz
+requests
+pydantic
+TTS
+numpy
+soundfile

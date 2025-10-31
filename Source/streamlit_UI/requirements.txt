@@ -1,0 +1,4 @@
+# Voice-Only Vision Assistant UI Dependencies
+
+# Core framework
+streamlit
