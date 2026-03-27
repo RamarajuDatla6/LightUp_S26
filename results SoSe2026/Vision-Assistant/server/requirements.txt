@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+opencv-python
+numpy
+Pillow
+dlib
+ultralytics
+torch
+torchvision
+transformers
+sounddevice
+vosk
+rapidfuzz
+pydantic 
