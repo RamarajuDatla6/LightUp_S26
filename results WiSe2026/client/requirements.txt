@@ -1,9 +1,0 @@
-streamlit
-opencv-python
-numpy
-Pillow
-requests
-sounddevice
-vosk
-rapidfuzz
-psutil 
