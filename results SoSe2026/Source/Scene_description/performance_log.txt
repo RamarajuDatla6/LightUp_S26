@@ -1,20 +1,8 @@
 
---- New Session Started: Mon May 25 14:39:26 2026 ---
---- Session Ended: Mon May 25 14:39:30 2026 ---
-
---- New Session Started: Mon May 25 14:50:20 2026 ---
-TIMESTAMP: Mon May 25 14:50:48 2026 | DESCRIPTION: A man with no shirt standing in a room. | LATENCY: 5.75s
---- Session Ended: Mon May 25 14:50:48 2026 ---
-
---- New Session Started: Mon May 25 14:51:12 2026 ---
---- Session Ended: Mon May 25 14:51:12 2026 ---
-
---- New Session Started: Mon May 25 14:52:32 2026 ---
-TIMESTAMP: Mon May 25 14:52:42 2026 | DESCRIPTION: A man with his mouth open sitting on the floor. | LATENCY: 4.20s
-TIMESTAMP: Mon May 25 14:52:57 2026 | DESCRIPTION: A man wearing a white shirt. | LATENCY: 3.83s
-TIMESTAMP: Mon May 25 14:53:08 2026 | DESCRIPTION: A man with a mustache is making a funny face. | LATENCY: 3.80s
---- Session Ended: Mon May 25 14:53:13 2026 ---
-
---- New Session Started: Mon May 25 14:53:37 2026 ---
-TIMESTAMP: Mon May 25 14:53:50 2026 | DESCRIPTION: A man in a white shirt is making a peace sign. | LATENCY: 3.90s
---- Session Ended: Mon May 25 14:53:51 2026 ---
+--- SESSION: Mon May 25 15:40:32 2026 ---
+MODEL: Salesforce/blip-image-captioning-base
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+--------------------------------------------------
+[15:40:47] A man holding up a piece of paper with the word police written on it. | Latency: 4.23s
+--- Session End: Mon May 25 15:40:50 2026 ---
+==================================================
