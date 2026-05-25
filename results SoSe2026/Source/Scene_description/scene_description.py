@@ -1,6 +1,8 @@
 import cv2
 import torch
 import time
+import os
+import psutil  # New: For RAM and CPU monitoring
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
 
@@ -9,8 +11,11 @@ class SceneDescriber:
         # 1. TRACK THE MODEL NAME
         self.model_name = "Salesforce/blip-image-captioning-base"
         
+        # 2. HARDWARE DETECTION
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"Executing on: {self.device}")
+        self.device_name = torch.cuda.get_device_name(0) if self.device.type == 'cuda' else "System CPU"
+        
+        print(f"Hardware Detected: {self.device_name} ({self.device})")
         
         # Load Model
         print(f"Loading Model: {self.model_name}...")
@@ -20,6 +25,15 @@ class SceneDescriber:
         # Technical Metric: Precision
         self.dtype = next(self.model.parameters()).dtype
         print(f"Model Load Complete. Precision: {self.dtype}")
+
+    def get_system_usage(self):
+        """Helper function to capture hardware metrics"""
+        process = psutil.Process(os.getpid())
+        # RAM usage in Megabytes
+        ram_mb = process.memory_info().rss / (1024 * 1024) 
+        # CPU usage percentage (of this specific process)
+        cpu_p = psutil.cpu_percent(interval=None) 
+        return ram_mb, cpu_p
 
     def get_scene_description(self, frame):
         try:
@@ -43,10 +57,14 @@ class SceneDescriber:
                 caption += '.'
 
             ai_time = time.time() - start_ai
-            return caption, ai_time
+            
+            # Capture hardware stats immediately after inference
+            ram, cpu = self.get_system_usage()
+            
+            return caption, ai_time, ram, cpu
 
         except Exception as e:
-            return f"Error: {str(e)}", 0
+            return f"Error: {str(e)}", 0, 0, 0
 
 def main():
     try:
@@ -68,56 +86,50 @@ def main():
         print("Error: Access Denied to Webcam")
         return
     
-    # --- UPDATED LOGGING ---
-    # We now log the MODEL NAME at the start of the session
+    # --- DETAILED LOGGING ---
     log_file = open("performance_log.txt", "a")
-    log_file.write(f"\n--- SESSION: {time.ctime()} ---\n")
+    log_file.write(f"\n{'='*60}\n")
+    log_file.write(f"SESSION START: {time.ctime()}\n")
     log_file.write(f"MODEL: {describer.model_name}\n")
+    log_file.write(f"HARDWARE: {describer.device_name} ({describer.device})\n")
     log_file.write(f"RESOLUTION: {res_label} | PRECISION: {describer.dtype}\n")
-    log_file.write("-" * 50 + "\n")
+    log_file.write(f"{'-'*60}\n")
     
     prev_time = 0
-    print(f"\nModel {describer.model_name} is active at {res_label}.")
 
     while True:
         curr_time = time.time()
         ret, frame = cap.read()
         if not ret: break
         
-        # Calculate Live FPS
-        time_gap = curr_time - prev_time
-        fps = 1 / time_gap if time_gap > 0 else 0
+        fps = 1 / (curr_time - prev_time) if (curr_time - prev_time) > 0 else 0
         prev_time = curr_time
         
         # --- ON-SCREEN METRICS ---
-        cv2.putText(frame, f"FPS: {int(fps)}", (20, 50), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(frame, f"FPS: {int(fps)} | {res_label}", (20, 40), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         
-        cv2.putText(frame, f"Mode: {res_label} HD", (20, 90), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
-        
-        # Adding Model Name to the screen as well (Optional but looks professional)
-        cv2.putText(frame, f"AI: {describer.model_name.split('/')[-1]}", (20, 125), 
+        cv2.putText(frame, f"Device: {describer.device_name}", (20, 70), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
 
-        cv2.imshow('Member 3 - High Definition Scene Description', frame)
+        cv2.imshow('Member 3 - HD System Auditor', frame)
 
         key = cv2.waitKey(1) & 0xFF
         if key == ord('d'):
-            print(f"AI ({describer.model_name}) is analyzing...")
-            description, duration = describer.get_scene_description(frame)
+            print("AI Processing...")
+            desc, duration, ram, cpu = describer.get_scene_description(frame)
             
-            # Print to console and save to Log
-            log_entry = f"[{time.strftime('%H:%M:%S')}] {description} | Latency: {duration:.2f}s\n"
+            # Log Result with System Metrics
+            log_entry = (f"[{time.strftime('%H:%M:%S')}] {desc}\n"
+                         f" > Latency: {duration:.2f}s | RAM: {ram:.1f}MB | CPU: {cpu}% | Device: {describer.device}\n")
+            
             log_file.write(log_entry)
             print(log_entry)
 
         elif key == ord('q'):
             break
 
-    # Shutdown
-    log_file.write(f"--- Session End: {time.ctime()} ---\n")
-    log_file.write("=" * 50 + "\n")
+    log_file.write(f"SESSION END: {time.ctime()}\n")
     log_file.close()
     cap.release()
     cv2.destroyAllWindows()

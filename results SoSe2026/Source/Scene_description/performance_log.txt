@@ -6,3 +6,21 @@ RESOLUTION: 1280x720 | PRECISION: torch.float32
 [15:40:47] A man holding up a piece of paper with the word police written on it. | Latency: 4.23s
 --- Session End: Mon May 25 15:40:50 2026 ---
 ==================================================
+
+--- SESSION: Mon May 25 15:57:41 2026 ---
+MODEL: Salesforce/blip-image-captioning-base
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+--------------------------------------------------
+[15:58:00] A man holding up a piece of cardboard. | Latency: 4.39s
+--- Session End: Mon May 25 15:58:01 2026 ---
+==================================================
+
+============================================================
+SESSION START: Mon May 25 16:10:12 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+[16:10:44] A man sitting at a table with a knife in his hand.
+ > Latency: 3.93s | RAM: 1544.2MB | CPU: 21.2% | Device: cpu
+SESSION END: Mon May 25 16:10:45 2026
