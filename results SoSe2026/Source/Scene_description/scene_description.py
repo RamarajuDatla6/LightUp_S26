@@ -2,36 +2,40 @@ import cv2
 import torch
 import time
 import os
-import psutil  # New: For RAM and CPU monitoring
+import psutil
 from PIL import Image
-from transformers import BlipProcessor, BlipForConditionalGeneration
+# Swapped to BLIP-2 Classes
+from transformers import Blip2Processor, Blip2ForConditionalGeneration
 
 class SceneDescriber:
     def __init__(self):
-        # 1. TRACK THE MODEL NAME
-        self.model_name = "Salesforce/blip-image-captioning-base"
+        # 1. UPDATED MODEL NAME (Evaluation Target)
+        self.model_name = "Salesforce/blip2-opt-2.7b"
         
-        # 2. HARDWARE DETECTION
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.device_name = torch.cuda.get_device_name(0) if self.device.type == 'cuda' else "System CPU"
         
         print(f"Hardware Detected: {self.device_name} ({self.device})")
-        
-        # Load Model
         print(f"Loading Model: {self.model_name}...")
-        self.processor = BlipProcessor.from_pretrained(self.model_name)
-        self.model = BlipForConditionalGeneration.from_pretrained(self.model_name).to(self.device)
+
+
+        # 2. LOAD BLIP-2 
+        # Note: BLIP-2 is large (~7GB-15GB VRAM/RAM). 
+        # On GPU we use float16 to make it fit. On CPU we use float32.
+        self.dtype = torch.float16 if self.device.type == 'cuda' else torch.float32
         
-        # Technical Metric: Precision
-        self.dtype = next(self.model.parameters()).dtype
-        print(f"Model Load Complete. Precision: {self.dtype}")
+        self.processor = Blip2Processor.from_pretrained(self.model_name)
+        self.model = Blip2ForConditionalGeneration.from_pretrained(
+            self.model_name, 
+            torch_dtype=self.dtype
+        ).to(self.device)
+        
+        self.actual_dtype = next(self.model.parameters()).dtype
+        print(f"Model Load Complete. Precision: {self.actual_dtype}")
 
     def get_system_usage(self):
-        """Helper function to capture hardware metrics"""
         process = psutil.Process(os.getpid())
-        # RAM usage in Megabytes
         ram_mb = process.memory_info().rss / (1024 * 1024) 
-        # CPU usage percentage (of this specific process)
         cpu_p = psutil.cpu_percent(interval=None) 
         return ram_mb, cpu_p
 
@@ -41,24 +45,20 @@ class SceneDescriber:
 
             image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image = Image.fromarray(image_rgb)
-            inputs = self.processor(image, return_tensors="pt").to(self.device)
+            
+            # BLIP-2 specific input processing
+            inputs = self.processor(image, return_tensors="pt").to(self.device, self.dtype)
 
-            out = self.model.generate(
-                **inputs,
-                max_length=50,
-                num_beams=5,
-                temperature=1.0,
-                repetition_penalty=1.5
-            )
-
-            caption = self.processor.decode(out[0], skip_special_tokens=True)
-            caption = caption[0].upper() + caption[1:]
-            if not caption.endswith('.'):
-                caption += '.'
+            # Generate (keeping parameters simple for comparison)
+            out = self.model.generate(**inputs, max_new_tokens=50)
+            caption = self.processor.decode(out[0], skip_special_tokens=True).strip()
+            
+            if caption:
+                caption = caption[0].upper() + caption[1:]
+                if not caption.endswith('.'):
+                    caption += '.'
 
             ai_time = time.time() - start_ai
-            
-            # Capture hardware stats immediately after inference
             ram, cpu = self.get_system_usage()
             
             return caption, ai_time, ram, cpu
@@ -71,10 +71,11 @@ def main():
         describer = SceneDescriber()
     except Exception as e:
         print(f"Initialization Failed: {str(e)}")
+        print("Tip: BLIP-2 requires significant RAM/VRAM. Ensure your system has 16GB+ or a strong GPU.")
         return
 
-    # --- CAMERA INITIALIZATION ---
     cap = cv2.VideoCapture(0)
+    # Keeping your 720p settings
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
@@ -83,16 +84,16 @@ def main():
     res_label = f"{actual_w}x{actual_h}"
 
     if not cap.isOpened():
-        print("Error: Access Denied to Webcam")
+        print("Error: Camera Access Denied")
         return
     
-    # --- DETAILED LOGGING ---
+    # Keeping your exact logging format
     log_file = open("performance_log.txt", "a")
     log_file.write(f"\n{'='*60}\n")
     log_file.write(f"SESSION START: {time.ctime()}\n")
     log_file.write(f"MODEL: {describer.model_name}\n")
     log_file.write(f"HARDWARE: {describer.device_name} ({describer.device})\n")
-    log_file.write(f"RESOLUTION: {res_label} | PRECISION: {describer.dtype}\n")
+    log_file.write(f"RESOLUTION: {res_label} | PRECISION: {describer.actual_dtype}\n")
     log_file.write(f"{'-'*60}\n")
     
     prev_time = 0
@@ -105,21 +106,21 @@ def main():
         fps = 1 / (curr_time - prev_time) if (curr_time - prev_time) > 0 else 0
         prev_time = curr_time
         
-        # --- ON-SCREEN METRICS ---
+        # Keeping your on-screen UI
         cv2.putText(frame, f"FPS: {int(fps)} | {res_label}", (20, 40), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         
         cv2.putText(frame, f"Device: {describer.device_name}", (20, 70), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
 
-        cv2.imshow('Member 3 - HD System Auditor', frame)
+        cv2.imshow('Member 3 - BLIP-2 EVALUATION', frame)
 
         key = cv2.waitKey(1) & 0xFF
         if key == ord('d'):
-            print("AI Processing...")
+            print("BLIP-2 processing...")
             desc, duration, ram, cpu = describer.get_scene_description(frame)
             
-            # Log Result with System Metrics
+            # Log entry (Format identical to your BLIP-1 logs)
             log_entry = (f"[{time.strftime('%H:%M:%S')}] {desc}\n"
                          f" > Latency: {duration:.2f}s | RAM: {ram:.1f}MB | CPU: {cpu}% | Device: {describer.device}\n")
             
