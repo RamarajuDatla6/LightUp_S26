@@ -56,3 +56,180 @@ RESOLUTION: 1280x720 | PRECISION: torch.float32
 [19:31:51] A man holding a small object in his hand.
  > Latency: 65.41s | RAM: 10823.8MB | CPU: 28.5% | Device: cpu
 SESSION END: Mon May 25 19:33:29 2026
+
+============================================================
+SESSION: Thu May 28 21:28:07 2026 | MODEL: BLIP
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+[21:28:22] a man holding a can of energy drink
+ > Latency: 2.62s | RAM: 1403.6MB | CPU: 26.2% | Device: cpu
+SESSION END: Thu May 28 21:28:27 2026
+
+==================================================
+SESSION: Thu May 28 21:58:34 2026 | MODEL: BLIP
+==================================================
+[21:58:41] a man sitting at a table with a cell in his hand | Latency: 2.44s | RAM: 1424.9MB
+
+==================================================
+SESSION: Thu May 28 22:00:38 2026 | MODEL: BLIP
+==================================================
+
+==================================================
+SESSION: Thu May 28 22:01:28 2026 | MODEL: MOONDREAM2
+==================================================
+[22:01:57] a man sitting in a chair talking on a cell | Latency: 1.38s | RAM: 1429.6MB
+[22:02:15] a man sitting in a chair with a cell in his hand | Latency: 1.30s | RAM: 1432.7MB
+[22:02:21] a man sitting at a table with a cell in his hand | Latency: 1.31s | RAM: 1433.5MB
+[22:02:29] a man sitting in a chair with a cell phone | Latency: 1.17s | RAM: 1437.6MB
+[22:02:44] a man holding a credit card in his hand | Latency: 1.11s | RAM: 1436.5MB
+[22:02:55] a man sitting in a chair with his hand up | Latency: 1.22s | RAM: 1427.3MB
+
+============================================================
+SESSION: Thu May 28 22:09:22 2026 | ACTIVE MODEL: BLIP
+============================================================
+
+============================================================
+SESSION START: Fri May 29 04:25:56 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:26:12 2026
+
+============================================================
+SESSION START: Fri May 29 04:26:29 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+[04:26:37] A man holding a tooth in front of his mouth.
+ > Latency: 3.39s | RAM: 1538.3MB | CPU: 22.4% | Device: cpu
+SESSION END: Fri May 29 04:26:49 2026
+
+============================================================
+SESSION START: Fri May 29 04:28:42 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:28:45 2026
+
+============================================================
+SESSION START: Fri May 29 04:29:24 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:29:25 2026
+
+============================================================
+SESSION START: Fri May 29 04:36:33 2026
+MODEL: vikhyatk/moondream2
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.bfloat16
+------------------------------------------------------------
+SESSION END: Fri May 29 04:36:34 2026
+
+============================================================
+SESSION START: Fri May 29 04:37:55 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:37:59 2026
+
+============================================================
+SESSION START: Fri May 29 04:38:25 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:38:26 2026
+
+============================================================
+SESSION START: Fri May 29 04:38:41 2026
+MODEL: vikhyatk/moondream2
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.bfloat16
+------------------------------------------------------------
+SESSION END: Fri May 29 04:38:42 2026
+
+============================================================
+SESSION START: Fri May 29 04:41:16 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:41:18 2026
+
+============================================================
+SESSION START: Fri May 29 04:50:08 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:50:09 2026
+
+============================================================
+SESSION START: Fri May 29 04:50:22 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:50:26 2026
+
+============================================================
+SESSION START: Fri May 29 04:50:38 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:50:40 2026
+
+============================================================
+SESSION START: Fri May 29 04:51:07 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:51:08 2026
+
+============================================================
+SESSION START: Fri May 29 04:51:28 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:51:29 2026
+
+============================================================
+SESSION START: Fri May 29 04:51:44 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:51:46 2026
+
+============================================================
+SESSION START: Fri May 29 04:52:02 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:52:05 2026
+
+============================================================
+SESSION START: Fri May 29 04:52:27 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:52:30 2026
+
+============================================================
+SESSION START: Fri May 29 04:52:45 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:52:47 2026
