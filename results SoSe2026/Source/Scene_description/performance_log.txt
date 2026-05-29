@@ -233,3 +233,53 @@ HARDWARE: System CPU (cpu)
 RESOLUTION: 1280x720 | PRECISION: torch.float32
 ------------------------------------------------------------
 SESSION END: Fri May 29 04:52:47 2026
+
+============================================================
+SESSION START: Fri May 29 04:55:10 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:55:15 2026
+
+============================================================
+SESSION START: Fri May 29 04:55:37 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 04:55:39 2026
+
+============================================================
+SESSION START: Fri May 29 05:01:17 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 05:01:27 2026
+
+============================================================
+SESSION START: Fri May 29 05:03:10 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 05:03:29 2026
+
+============================================================
+SESSION START: Fri May 29 05:07:53 2026
+MODEL: Salesforce/blip-image-captioning-base
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+[05:08:02] The man is wearing a pair of glasses.
+ > Latency: 3.25s | RAM: 1536.8MB | CPU: 25.3% | Device: cpu
+SESSION END: Fri May 29 05:08:02 2026
+
+============================================================
+SESSION START: Fri May 29 05:21:49 2026
+MODEL: Salesforce/blip2-opt-2.7b
+HARDWARE: System CPU (cpu)
+RESOLUTION: 1280x720 | PRECISION: torch.float32
+------------------------------------------------------------
+SESSION END: Fri May 29 05:22:04 2026
